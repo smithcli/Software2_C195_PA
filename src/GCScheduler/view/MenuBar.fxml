@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GCScheduler.controller.MenuBarController">
+   <children>
+      <MenuBar fx:id="menuBar" prefHeight="27.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="refreshMItem" mnemonicParsing="false" onAction="#refreshListener" text="Refresh Data" />
+              <MenuItem fx:id="quitMItem" mnemonicParsing="false" onAction="#quitListener" text="Quit" />
+            </items>
+          </Menu>
+          <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit" />
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="aboutMitem" mnemonicParsing="false" onAction="#aboutListener" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>

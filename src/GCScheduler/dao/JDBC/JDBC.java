@@ -1,4 +1,6 @@
-package GCScheduler.dao;
+package GCScheduler.dao.JDBC;
+
+import GCScheduler.model.Scheduler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -37,5 +39,14 @@ public abstract class JDBC {
         } catch (Exception e) {
             //do nothing
         }
+    }
+
+    public static void getData() {
+        Scheduler.setAllCustomers(new CustomerImpl().getAllCustomers());
+        Scheduler.setAllFirstLevelDivs(new FirstLevelDivImpl().getAllFirstLevelDivs());
+        Scheduler.setAllCountries(new CountryImpl().getAllCountries());
+        Scheduler.setAllUsers(new UserImpl().getAllUsers());
+        Scheduler.setAllContacts(new ContactImpl().getAllContacts());
+        Scheduler.setAllAppointments(new AppointmentImpl().getAllAppts());
     }
 }

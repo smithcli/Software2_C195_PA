@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="697.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GCScheduler.controller.appointments.AppointmentsController">
+   <children>
+      <BorderPane prefHeight="697.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="-Infinity" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <GridPane hgap="5.0" GridPane.hgrow="NEVER">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" />
+                        <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                      <Button fx:id="prevButton" disable="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#prevButtonListener" prefWidth="30.0" text="&lt;" />
+                        <Button fx:id="nextButton" disable="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#nextButtonListener" prefWidth="30.0" text="&gt;" GridPane.columnIndex="2" />
+                        <Label fx:id="monthWeekLabel" alignment="CENTER" prefWidth="150.0" text="All" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                     </children>
+                  </GridPane>
+                  <GridPane hgap="10.0" GridPane.columnIndex="2" GridPane.hgrow="NEVER">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <RadioButton fx:id="allRadio" mnemonicParsing="false" onAction="#allRadioListener" selected="true" text="All" GridPane.columnIndex="1">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="apptViewGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="monthRadio" mnemonicParsing="false" onAction="#monthRadioListener" text="Month" toggleGroup="$apptViewGroup" GridPane.columnIndex="2">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="weekRadio" mnemonicParsing="false" onAction="#weekRadioListener" text="Week" toggleGroup="$apptViewGroup" GridPane.columnIndex="3" />
+                        <Label fx:id="viewLabel" text="View:" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </GridPane>
+               </children>
+            </GridPane>
+         </top>
+         <center>
+            <TableView fx:id="apptTable" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="apptIdCol" maxWidth="1.7976931348623157E308" prefWidth="65.0" text="Appt ID" />
+                  <TableColumn fx:id="typeCol" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="Type" />
+                <TableColumn fx:id="titleCol" maxWidth="1.7976931348623157E308" prefWidth="90.0" text="Title" />
+                  <TableColumn fx:id="descriptionCol" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="Description" />
+                  <TableColumn fx:id="locationCol" maxWidth="1.7976931348623157E308" prefWidth="100.0" text="Location" />
+                  <TableColumn fx:id="startCol" maxWidth="1.7976931348623157E308" prefWidth="150.0" text="Start" />
+                  <TableColumn fx:id="endCol" maxWidth="1.7976931348623157E308" prefWidth="150.0" text="End" />
+                  <TableColumn fx:id="cxIdCol" maxWidth="1.7976931348623157E308" prefWidth="50.0" text="CX ID" />
+                  <TableColumn fx:id="usrIdCol" maxWidth="1.7976931348623157E308" prefWidth="60.0" text="Usr ID" />
+                  <TableColumn fx:id="contactCol" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="Contact" />
+              </columns>
+            </TableView>
+         </center>
+         <bottom>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="errorLabel" alignment="CENTER" prefWidth="300.0" text="Error" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <ButtonBar prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                    <buttons>
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonListener" prefWidth="70.0" text="Add" />
+                        <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonListener" prefWidth="70.0" text="Update" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonListener" prefWidth="70.0" text="Delete" />
+                    </buttons>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </ButtonBar>
+               </children>
+            </GridPane>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>
