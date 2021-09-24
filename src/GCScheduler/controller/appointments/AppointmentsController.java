@@ -12,11 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.DayOfWeek;
-import java.time.Month;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 
 /**
  * Class to control the Appointments.fxml nested in the Schedule.fxml.
@@ -78,7 +74,7 @@ public class AppointmentsController {
      * @param event add button press.
      */
     @FXML void addButtonListener(ActionEvent event) {
-        // open add appointment form.
+        // TODO open add appointment form.
     }
 
     /**
@@ -96,7 +92,7 @@ public class AppointmentsController {
      * @param event appointment selected and delete button press.
      */
     @FXML void deleteButtonListener(ActionEvent event) {
-        // delete selected item
+        // TODO delete selected item
     }
 
     /**
@@ -144,7 +140,7 @@ public class AppointmentsController {
      * @param event on update button press.
      */
     @FXML void updateButtonListener(ActionEvent event) {
-        // opens the update appt form
+        // TODO opens the update appt form
     }
 
     /**

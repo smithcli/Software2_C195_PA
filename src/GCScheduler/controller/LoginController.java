@@ -3,6 +3,7 @@ package GCScheduler.controller;
 import GCScheduler.GCScheduler;
 import GCScheduler.model.Scheduler;
 import GCScheduler.model.User;
+import GCScheduler.utilities.DateTimeConv;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import java.io.IOException;
+import java.io.*;
 import java.text.Collator;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -30,14 +32,14 @@ public class LoginController {
     @FXML private Label loginErrorLabel;
     @FXML private PasswordField passwordField;
     public static final ResourceBundle RB = ResourceBundle.getBundle("GCScheduler/utilities/language/GCBundle",Locale.getDefault());
+    private final String LOCATION = ZoneId.systemDefault().getId();
 
     /**
      * Method calls initial data collection, sets fields to accommodate english and french users, and displays user's location.
      */
     public void initialize() {
         MenuBarController.refreshData();
-        String location = ZoneId.systemDefault().getId();
-        locationLabel.setText(RB.getString("YourLocation") + location);
+        locationLabel.setText(RB.getString("YourLocation") + LOCATION);
         loginButton.setText(RB.getString("Login"));
         userNameField.setPromptText(RB.getString("Username"));
         passwordField.setPromptText(RB.getString("Password"));
@@ -51,19 +53,23 @@ public class LoginController {
     @FXML void loginButtonListener(ActionEvent event) throws IOException {
         String userName = userNameField.getText();
         String password = passwordField.getText();
+        int attemptValue = 0;
         switch (userValidation(userName,password)) {
             case 1:
+                attemptValue = 1;
                 loadScheduler();
                 break;
             case 2:
                 loginErrorLabel.setText(RB.getString("Error2"));
                 loginErrorLabel.setVisible(true);
+                attemptValue = 2;
                 break;
             case 3:
                 loginErrorLabel.setText(RB.getString("Error3"));
                 loginErrorLabel.setVisible(true);
+                attemptValue = 2;
         }
-        // Add logging method call
+        logAttempt(userName, attemptValue);
     }
 
     /**
@@ -116,5 +122,28 @@ public class LoginController {
         }
         //Username not found.
         return 3;
+    }
+
+    /**
+     * Method logs the login attempt as successful or invalid to the root folder in file named login_activity.txt.
+     * @param username Username used to attempt login
+     * @param attemptValue 1=valid login log to file, 2=invalid login log to file.
+     * @throws IOException creates if not exists and writes to login_activity.txt
+     */
+    protected void logAttempt(String username, int attemptValue) throws IOException {
+        String fileName = "login_activity.txt", log;
+        ZonedDateTime now = DateTimeConv.localToUTC(ZonedDateTime.now());
+        //Determine output of log.
+        if (attemptValue == 1) {
+            log = "User '" + username + "' successful login at " + now + " from " + LOCATION + "\n";
+        } else {
+            log = "User '" + username + "' invalid login at " + now + " from " + LOCATION + "\n";
+        }
+        //Append to log.
+        File file = new File(fileName);
+        if (!file.exists()) {file.createNewFile();}
+        FileWriter fileWriter = new FileWriter(fileName,true);
+        fileWriter.write(log);
+        fileWriter.close();
     }
 }

@@ -76,3 +76,4 @@ fabric.properties
 # Other files I added
 .DS_Store 
 lib/*
+/login_activity.txt
