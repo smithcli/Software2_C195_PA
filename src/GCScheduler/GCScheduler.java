@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.Locale;
 import java.util.Objects;
 
 public class GCScheduler extends Application {
@@ -16,7 +15,8 @@ public class GCScheduler extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         GCScheduler.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/Login.fxml")));
+        //TODO set root back to login.
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/Schedule.fxml")));
         GCScheduler.primaryStage.setTitle("GC Scheduler");
         GCScheduler.primaryStage.setScene(new Scene(root));
         GCScheduler.primaryStage.show();

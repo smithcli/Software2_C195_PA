@@ -86,5 +86,10 @@ public class Country {
     public void removeFirstLevelDiv(FirstLevelDiv firstLevelDiv) {
         firstLevelDivs.remove(firstLevelDiv);
     }
+
+    @Override
+    public String toString() {
+        return this.countryName;
+    }
 }
 

@@ -20,17 +20,9 @@ public class CountryImpl implements CountryDao {
     public Country getCountry(int countryId) {
         String query = "SELECT * FROM countries WHERE Country_ID = " + countryId + ";";
         try {
-            ResultSet resultSet = JDBC.conn.createStatement().executeQuery(query);
-            resultSet.next();
-            int id = resultSet.getInt("Country_ID");
-            String name = resultSet.getString("Country");
-            String createDate = resultSet.getString("Create_Date");
-            String createdBy = resultSet.getString("Created_By");
-            String lastUpdate = resultSet.getString("Last_Update");
-            String lastUpdatedBy = resultSet.getString("Last_Updated_By");
-            ZonedDateTime cDate = DateTimeConv.strToDateUTC(createDate);
-            ZonedDateTime uDate = DateTimeConv.strToDateUTC(lastUpdate);
-            return new Country(id,name,cDate,createdBy,uDate,lastUpdatedBy);
+            ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
+            rset.next();
+            return makeCountry(rset);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,18 +34,9 @@ public class CountryImpl implements CountryDao {
         String query = "SELECT * FROM countries;";
         ObservableList<Country> allCountries = FXCollections.observableArrayList();
         try {
-            ResultSet resultSet = JDBC.conn.createStatement().executeQuery(query);
-            while (resultSet.next()) {
-                int id = resultSet.getInt("Country_ID");
-                String name = resultSet.getString("Country");
-                String createDate = resultSet.getString("Create_Date");
-                String createdBy = resultSet.getString("Created_By");
-                String lastUpdate = resultSet.getString("Last_Update");
-                String lastUpdatedBy = resultSet.getString("Last_Updated_By");
-                ZonedDateTime cDate = DateTimeConv.strToDateUTC(createDate);
-                ZonedDateTime uDate = DateTimeConv.strToDateUTC(lastUpdate);
-                Country country = new Country(id,name,cDate,createdBy,uDate,lastUpdatedBy);
-                allCountries.add(country);
+            ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
+            while (rset.next()) {
+                allCountries.add(makeCountry(rset));
             }
             return allCountries;
         } catch (SQLException e) {
@@ -70,5 +53,17 @@ public class CountryImpl implements CountryDao {
     @Override
     public boolean deleteCountry(Country country) {
         return false;
+    }
+
+    private Country makeCountry(ResultSet rset) throws SQLException {
+        int id = rset.getInt("Country_ID");
+        String name = rset.getString("Country");
+        String createDate = rset.getString("Create_Date");
+        String createdBy = rset.getString("Created_By");
+        String lastUpdate = rset.getString("Last_Update");
+        String lastUpdatedBy = rset.getString("Last_Updated_By");
+        ZonedDateTime cDate = DateTimeConv.strToDateUTC(createDate);
+        ZonedDateTime uDate = DateTimeConv.strToDateUTC(lastUpdate);
+        return new Country(id,name,cDate,createdBy,uDate,lastUpdatedBy);
     }
 }

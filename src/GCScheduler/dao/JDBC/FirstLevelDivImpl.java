@@ -20,18 +20,9 @@ public class FirstLevelDivImpl implements FirstLevelDivDao {
     public FirstLevelDiv getFirstLevelDiv(int divId) {
         String query = "SELECT * FROM first_level_divisions WHERE Division_ID = " + divId + ";";
         try {
-            ResultSet rset = JDBC.conn.createStatement().executeQuery(query);
+            ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
             rset.next();
-            int id = rset.getInt("Division_ID");
-            String div = rset.getString("Division");
-            String createDate = rset.getString("Create_Date");
-            String createdBy = rset.getString("Created_By");
-            String lastUpdate = rset.getString("Last_Update");
-            String lastUpdatedBy = rset.getString("Last_Updated_By");
-            int countryId = rset.getInt("Country_ID");
-            ZonedDateTime cDate = DateTimeConv.strToDateUTC(createDate);
-            ZonedDateTime uDate = DateTimeConv.strToDateUTC(lastUpdate);
-            return new FirstLevelDiv(id,div,cDate,createdBy,uDate,lastUpdatedBy,countryId);
+            return makeDiv(rset);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,19 +34,9 @@ public class FirstLevelDivImpl implements FirstLevelDivDao {
         String query = "SELECT * FROM first_level_divisions;";
         ObservableList<FirstLevelDiv> allFirstLevelDivs = FXCollections.observableArrayList();
         try {
-            ResultSet rset = JDBC.conn.createStatement().executeQuery(query);
+            ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
             while (rset.next()) {
-                int id = rset.getInt("Division_ID");
-                String div = rset.getString("Division");
-                String createDate = rset.getString("Create_Date");
-                String createdBy = rset.getString("Created_By");
-                String lastUpdate = rset.getString("Last_Update");
-                String lastUpdatedBy = rset.getString("Last_Updated_By");
-                int countryId = rset.getInt("Country_ID");
-                ZonedDateTime cDate = DateTimeConv.strToDateUTC(createDate);
-                ZonedDateTime uDate = DateTimeConv.strToDateUTC(lastUpdate);
-                FirstLevelDiv firstLevelDiv = new FirstLevelDiv(id,div,cDate,createdBy,uDate,lastUpdatedBy,countryId);
-                allFirstLevelDivs.add(firstLevelDiv);
+                allFirstLevelDivs.add(makeDiv(rset));
             }
             return allFirstLevelDivs;
         } catch (SQLException e) {
@@ -72,5 +53,18 @@ public class FirstLevelDivImpl implements FirstLevelDivDao {
     @Override
     public boolean deleteFirstLevelDiv(FirstLevelDiv firstLevelDiv) {
         return false;
+    }
+
+    private FirstLevelDiv makeDiv(ResultSet rset) throws SQLException {
+        int id = rset.getInt("Division_ID");
+        String div = rset.getString("Division");
+        String createDate = rset.getString("Create_Date");
+        String createdBy = rset.getString("Created_By");
+        String lastUpdate = rset.getString("Last_Update");
+        String lastUpdatedBy = rset.getString("Last_Updated_By");
+        int countryId = rset.getInt("Country_ID");
+        ZonedDateTime cDate = DateTimeConv.strToDateUTC(createDate);
+        ZonedDateTime uDate = DateTimeConv.strToDateUTC(lastUpdate);
+        return new FirstLevelDiv(id,div,cDate,createdBy,uDate,lastUpdatedBy,countryId);
     }
 }

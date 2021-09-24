@@ -18,7 +18,7 @@ public abstract class JDBC {
     //DB User info
     private static final String userName = "sqlUser";
     private static final String password = "Passw0rd!";
-    static Connection conn;
+    private static Connection conn;
 
     /**
      * Method to start connections to mySql database.

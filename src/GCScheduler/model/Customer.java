@@ -139,5 +139,10 @@ public class Customer {
     public void removeAppointment(Appointment appointment)  {
         appointments.remove(appointment);
     }
+
+    @Override
+    public String toString() {
+        return this.customerName;
+    }
 }
 

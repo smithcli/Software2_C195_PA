@@ -76,4 +76,9 @@ public class User {
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
+
+    @Override
+    public String toString() {
+        return this.userName;
+    }
 }

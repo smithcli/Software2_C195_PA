@@ -3,8 +3,6 @@ package GCScheduler.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
-
 public class Scheduler {
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
     private static ObservableList<FirstLevelDiv> allFirstLevelDivs = FXCollections.observableArrayList();
@@ -13,7 +11,7 @@ public class Scheduler {
     private static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
-    public static ObservableList<Country> getAllCountries() throws SQLException {
+    public static ObservableList<Country> getAllCountries() {
         return allCountries;
     }
 

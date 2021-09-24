@@ -105,4 +105,9 @@ public class FirstLevelDiv {
     public void removeCustomer(Customer customer) {
         customerList.remove(customer);
     }
+
+    @Override
+    public String toString() {
+        return this.divName;
+    }
 }

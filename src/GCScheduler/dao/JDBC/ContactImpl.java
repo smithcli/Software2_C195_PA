@@ -18,12 +18,9 @@ public class ContactImpl implements ContactDao {
     public Contact getContact(int contactId) {
         String query = "SELECT * FROM contacts WHERE Contact_ID = " + contactId + ";";
         try {
-            ResultSet rset = JDBC.conn.createStatement().executeQuery(query);
+            ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
             rset.next();
-            int id = rset.getInt("Contact_ID");
-            String name = rset.getString("Contact_Name");
-            String email = rset.getString("Email");
-            return new Contact(id,name,email);
+            return makeContact(rset);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -35,13 +32,9 @@ public class ContactImpl implements ContactDao {
         ObservableList<Contact> allContacts = FXCollections.observableArrayList();
         String query = "SELECT * FROM contacts";
         try {
-            ResultSet rset = JDBC.conn.createStatement().executeQuery(query);
+            ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
             while (rset.next()) {
-                int id = rset.getInt("Contact_ID");
-                String name = rset.getString("Contact_Name");
-                String email = rset.getString("Email");
-                Contact contact = new Contact(id,name,email);
-                allContacts.add(contact);
+                allContacts.add(makeContact(rset));
             }
             return allContacts;
         } catch (SQLException e) {
@@ -58,5 +51,12 @@ public class ContactImpl implements ContactDao {
     @Override
     public boolean deleteContact(Contact contact) {
         return false;
+    }
+
+    private Contact makeContact(ResultSet rset) throws SQLException {
+        int id = rset.getInt("Contact_ID");
+        String name = rset.getString("Contact_Name");
+        String email = rset.getString("Email");
+        return new Contact(id,name,email);
     }
 }

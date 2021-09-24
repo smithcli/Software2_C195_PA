@@ -20,18 +20,9 @@ public class UserImpl implements UserDao {
     public User getUser(int usrId) {
         String query = "SELECT * FROM users WHERE User_ID = " + usrId + ";";
         try {
-            ResultSet rset = JDBC.conn.createStatement().executeQuery(query);
+            ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
             rset.next();
-            int id = rset.getInt("User_ID");
-            String name = rset.getString("User_Name");
-            String password = rset.getString("Password");
-            String createDate = rset.getString("Create_Date");
-            String createdBy = rset.getString("Created_By");
-            String lastUpdate = rset.getString("Last_Update");
-            String lastUpdatedBy = rset.getString("Last_Updated_By");
-            ZonedDateTime cDate = DateTimeConv.strToDateUTC(createDate);
-            ZonedDateTime uDate = DateTimeConv.strToDateUTC(lastUpdate);
-            return new User(id,name,password,cDate,createdBy,uDate,lastUpdatedBy);
+            return makeUser(rset);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,19 +34,9 @@ public class UserImpl implements UserDao {
         ObservableList<User> allUsers = FXCollections.observableArrayList();
         String query = "SELECT * FROM users;";
         try {
-            ResultSet rset = JDBC.conn.createStatement().executeQuery(query);
+            ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
             while (rset.next()) {
-                int id = rset.getInt("User_ID");
-                String name = rset.getString("User_Name");
-                String password = rset.getString("Password");
-                String createDate = rset.getString("Create_Date");
-                String createdBy = rset.getString("Created_By");
-                String lastUpdate = rset.getString("Last_Update");
-                String lastUpdatedBy = rset.getString("Last_Updated_By");
-                ZonedDateTime cDate = DateTimeConv.strToDateUTC(createDate);
-                ZonedDateTime uDate = DateTimeConv.strToDateUTC(lastUpdate);
-                User user = new User(id,name,password,cDate,createdBy,uDate,lastUpdatedBy);
-                allUsers.add(user);
+                allUsers.add(makeUser(rset));
             }
             return allUsers;
         } catch (SQLException e) {
@@ -72,5 +53,18 @@ public class UserImpl implements UserDao {
     @Override
     public boolean deleteUser(User user) {
         return false;
+    }
+
+    private User makeUser(ResultSet rset) throws SQLException {
+        int id = rset.getInt("User_ID");
+        String name = rset.getString("User_Name");
+        String password = rset.getString("Password");
+        String createDate = rset.getString("Create_Date");
+        String createdBy = rset.getString("Created_By");
+        String lastUpdate = rset.getString("Last_Update");
+        String lastUpdatedBy = rset.getString("Last_Updated_By");
+        ZonedDateTime cDate = DateTimeConv.strToDateUTC(createDate);
+        ZonedDateTime uDate = DateTimeConv.strToDateUTC(lastUpdate);
+        return new User(id,name,password,cDate,createdBy,uDate,lastUpdatedBy);
     }
 }
