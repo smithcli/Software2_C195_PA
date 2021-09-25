@@ -39,7 +39,7 @@ public class MenuBarController {
 
     public static void refreshData() {
         try {
-            if (JDBC.getConnection().isValid(10)) {
+            if (JDBC.getConnection().isValid(JDBC.getTimeout())) {
                 JDBC.getData();
                 System.out.println("MenuBar refreshed data from DB.");
             }

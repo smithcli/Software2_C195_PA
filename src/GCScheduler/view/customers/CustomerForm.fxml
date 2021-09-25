@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -28,10 +28,10 @@
                <children>
                   <GridPane hgap="10.0" prefHeight="500.0" prefWidth="400.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="50.0" />
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="10.0" />
                       <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="-Infinity" minWidth="10.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="10.0" />
-                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="10.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -46,17 +46,17 @@
                         <Label text="Customer ID" GridPane.columnIndex="1" />
                         <Label text="Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Country" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Street" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Street, City" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="State / Province" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="Phone" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="customerIdField" disable="true" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" />
-                        <TextField fx:id="nameField" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="countryCombo" maxWidth="-Infinity" onAction="#countryComboListener" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                        <TextField fx:id="streetField" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                        <ComboBox fx:id="stateCombo" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                        <TextField fx:id="postalCodeField" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
-                        <TextField fx:id="phoneField" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
+                        <TextField fx:id="customerIdField" disable="true" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" />
+                        <TextField fx:id="nameField" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="countryCombo" maxWidth="-Infinity" onAction="#countryComboListener" prefWidth="250.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                        <TextField fx:id="streetField" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="stateCombo" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+                        <TextField fx:id="postalCodeField" maxWidth="-Infinity" prefWidth="250.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+                        <TextField fx:id="phoneField" prefWidth="250.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
                   <GridPane alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

@@ -18,6 +18,7 @@ public abstract class JDBC {
     //DB User info
     private static final String userName = "sqlUser";
     private static final String password = "Passw0rd!";
+    private static int timeout = 10;
     private static Connection conn;
 
     /**
@@ -60,6 +61,14 @@ public abstract class JDBC {
      */
     public static String getDbUser() {
         return userName;
+    }
+
+    public static int getTimeout() {
+        return timeout;
+    }
+
+    public static void setTimeout(int timeout) {
+        JDBC.timeout = timeout;
     }
 
     /**

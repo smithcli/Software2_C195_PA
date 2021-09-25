@@ -11,14 +11,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 
+/**
+ * Class is the Customer interface for the mySql Database. Uses sql queries to perform database functions.
+ */
 public class CustomerImpl implements CustomerDao {
+
+    /**
+     * Method inserts a new Customer record into mySql database using a Customer object. Customer ID will be automatically generated.
+     * @param customer Customer object to Insert.
+     */
     @Override
     public void createCustomer(Customer customer) {
         String query = "INSERT INTO customers (Customer_Name,Address,Postal_Code,Phone,Division_ID,create_date,created_by,last_update,last_updated_by) values (?,?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement pstmt = JDBC.getConnection().prepareStatement(query);
+            //Necessary for customer creation (not completed by user)
             customer.setCreateDate(DateTimeConv.localToUTC(ZonedDateTime.now()));
             customer.setCreatedBy(JDBC.getDbUser());
+            //Helper Method to prepare statement
             setCustomer(customer,pstmt);
             pstmt.execute();
         } catch (SQLException e) {
@@ -26,6 +36,12 @@ public class CustomerImpl implements CustomerDao {
         }
     }
 
+    /**
+     * Method uses sql to locate and return a new Customer object by Customer ID.
+     * Best to use Customer ID as it's the primary key and will keep application from displaying duplicate objects resulting from having the same Customer name or other field.
+     * @param customerId Customer ID
+     * @return new Customer object.
+     */
     @Override
     public Customer getCustomer(int customerId) {
         String query = "SELECT * FROM customers WHERE Customer_ID = " + customerId + ";";
@@ -39,6 +55,30 @@ public class CustomerImpl implements CustomerDao {
         return null;
    }
 
+    /**
+     * Method uses sql to locate and return a new Customer object by Name and Phone Number.
+     * Reduces the chance to select a record with the same name.
+     * @param customerName Customer Name
+     * @param phoneNum Customer Phone Number
+     * @return new Customer object.
+     */
+    @Override
+    public Customer getCustomer(String customerName, String phoneNum) {
+        String query = "SELECT * FROM customers WHERE Customer_Name = '"+customerName+"' AND Phone = '"+phoneNum+"';";
+        try {
+            ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
+            rset.next();
+            return makeCustomer(rset);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Method returns all records from Customer table in a mySql database.
+     * @return ObservableList of Customer Objects.
+     */
     @Override
     public ObservableList<Customer> getAllCustomers() {
         String query = "SELECT * FROM customers;";
@@ -57,14 +97,21 @@ public class CustomerImpl implements CustomerDao {
 
     @Override
     public void updateCustomer(Customer customer) {
-
+        //TODO add update
     }
 
     @Override
     public boolean deleteCustomer(Customer customer) {
+        //TODO add delete
         return false;
     }
 
+    /**
+     * Method helps return a ResultSet for a Customer record in the Customer table.
+     * @param rset the ResultSet to help.
+     * @return Customer Object that contains data from Customer record.
+     * @throws SQLException Uses Sql Class ResultSet to access a mySql database.
+     */
     private Customer makeCustomer(ResultSet rset) throws SQLException {
         int custId = rset.getInt("Customer_ID");
         String custName = rset.getString("Customer_Name");
@@ -81,6 +128,14 @@ public class CustomerImpl implements CustomerDao {
         return new Customer(custId,custName,address,postalCode,phone,cDate,createdBy,uDate,lastUpdatedBy,divId);
     }
 
+    /**
+     * Method helps return a PreparedStatement for a Customer object.
+     * Indices used are 1-9: 1-Name, 2-Address, 3-PostalCode, 4-Phone, 5-divId, 6-createDate, 7-createBy, 8-lastUpdate, 9-lastUpdatedBy.
+     * @param customer Customer Object.
+     * @param pstmt PreparedStatment to help.
+     * @return PreparedStatement with Customer Fields.
+     * @throws SQLException Uses PreparedStatement.
+     */
     private PreparedStatement setCustomer(Customer customer, PreparedStatement pstmt) throws SQLException {
         ZonedDateTime now = ZonedDateTime.now();
         pstmt.setString(1,customer.getCustomerName());

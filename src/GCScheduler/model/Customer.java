@@ -19,6 +19,10 @@ public class Customer {
     private FirstLevelDiv div;
     private ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
+    public Customer(String customerName) {
+        this.customerName = customerName;
+    }
+
     public Customer(int customerId, String customerName, String address, String postalCode, String phoneNum, ZonedDateTime createDate, String createdBy, ZonedDateTime lastUpdate, String lastUpdatedBy, int divId) {
         this.customerId = customerId;
         this.customerName = customerName;

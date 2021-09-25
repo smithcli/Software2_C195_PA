@@ -53,9 +53,10 @@ public class CustomersController {
      */
     @FXML void addButtonListener(ActionEvent event) throws IOException {
         AddCustomerFormController addController = new AddCustomerFormController();
-        Stage stage = stageBuilder(addController);
+        Stage stage = stageFactory(addController);
         stage.setTitle("Add Customer");
-        stage.show();
+        stage.showAndWait();
+        initialize();
     }
 
     @FXML void deleteButtonListener(ActionEvent event) {
@@ -68,8 +69,10 @@ public class CustomersController {
      * @throws IOException loads CustomerForm.fxml and new Stage.
      */
     @FXML void updateButtonListener(ActionEvent event) throws IOException {
+        //TODO add error if customer is not selected
+        //TODO add UpdateController get item method.
         UpdateCustomerFormController controller = new UpdateCustomerFormController();
-        Stage stage = stageBuilder(controller);
+        Stage stage = stageFactory(controller);
         stage.setTitle("Update Customer");
         stage.show();
     }
@@ -80,7 +83,7 @@ public class CustomersController {
      * @return Stage with CustomerForm
      * @throws IOException loads CustomerForm.fxml with new Stage.
      */
-    private Stage stageBuilder(CustomerFormController controller) throws IOException {
+    private Stage stageFactory(CustomerFormController controller) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GCScheduler/view/customers/CustomerForm.fxml"));
         loader.setController(controller);
