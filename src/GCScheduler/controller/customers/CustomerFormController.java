@@ -44,12 +44,16 @@ public abstract class CustomerFormController {
     }
 
     /**
-     * Method to set up the ComboBoxes for Add and Update forms. Disables State/Province Combo.
+     * Method to set up the ComboBoxes for Add and Update forms.
      */
     public void setupCombos() {
         countryCombo.setPromptText("Select Country");
         countryCombo.setItems(Scheduler.getAllCountries());
-        stateCombo.setDisable(true);
+        if (countryCombo.getSelectionModel().isEmpty()) {
+            stateCombo.setDisable(true);
+        } else {
+            stateCombo.setItems(countryCombo.getSelectionModel().getSelectedItem().getFirstLevelDivs());
+        }
     }
 
     /**
@@ -65,7 +69,8 @@ public abstract class CustomerFormController {
     }
 
     /**
-     * Method to create a new Customer for Add and Update Forms to work with JDBC CustomerDao
+     * Method to create a new Customer for Add and Update Forms to work with JDBC CustomerDao.
+     * Builds with Name,Address,Postal,Phone, and Div ID from Form Fields.
      */
     public Customer customerBuilder() {
         Customer customer = new Customer(nameField.getText());

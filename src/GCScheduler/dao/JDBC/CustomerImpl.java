@@ -95,14 +95,38 @@ public class CustomerImpl implements CustomerDao {
         return null;
     }
 
+    /**
+     * Updates a customer record using sql. Identifies customer by Customer_ID.
+     * @param customer Customer object to replace the old record.
+     */
     @Override
     public void updateCustomer(Customer customer) {
-        //TODO add update
+        String query = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ?, create_date = ?, created_by = ?, last_update = ?, last_updated_by = ? WHERE Customer_ID = ?;";
+        try {
+            PreparedStatement pstmt = JDBC.getConnection().prepareStatement(query);
+            setCustomer(customer,pstmt);
+            pstmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Deletes a customer record from the database as well as all related customer appointments.
+     * @param customer Customer object to be deleted.
+     * @return true if deleted.
+     */
     @Override
     public boolean deleteCustomer(Customer customer) {
-        //TODO add delete
+        int customerId = customer.getCustomerId();
+        String query = "DELETE FROM customers WHERE Customer_ID = "+customerId+";";
+        try {
+            JDBC.getConnection().createStatement().execute(query);
+            return true;
+            //TODO delete all appointments with customer.
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -147,6 +171,9 @@ public class CustomerImpl implements CustomerDao {
         pstmt.setString(7,customer.getCreatedBy());
         pstmt.setString(8,DateTimeConv.dateToStrUTC(now));
         pstmt.setString(9,JDBC.getDbUser());
+        if (pstmt.getParameterMetaData().getParameterCount() > 9) {
+            pstmt.setInt(10, customer.getCustomerId());
+        }
         return pstmt;
     }
 }

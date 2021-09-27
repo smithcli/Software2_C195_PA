@@ -1,5 +1,8 @@
 package GCScheduler.controller.customers;
 
+import GCScheduler.dao.CustomerDao;
+import GCScheduler.dao.JDBC.CustomerImpl;
+import GCScheduler.dao.JDBC.JDBC;
 import GCScheduler.model.Customer;
 import GCScheduler.model.Scheduler;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Controller Class for Customer Tab.
@@ -29,10 +33,11 @@ public class CustomersController {
     @FXML private Button updateButton;
     @FXML private Button addButton;
     @FXML private Label errorLabel;
+    private static boolean deleted;
 
     /**
      * Method called when loaded, populates tableView from Scheduler class model.
-     * Includes lambda expressions to reduce amount of code. Callback factory is extremely long.
+     * Includes lambda expressions to reduce amount of code. The &quot;new Callback&quot; way is extremely long.
      */
     public void initialize() {
         // Place customer list on TableView.
@@ -44,6 +49,8 @@ public class CustomersController {
         countryCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getDiv().getCountry().getCountryName()));
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phoneNum"));
+        customerTable.getSortOrder().add(cxIdCol);
+        errorLabel.setVisible(false);
     }
 
     /**
@@ -59,8 +66,35 @@ public class CustomersController {
         initialize();
     }
 
-    @FXML void deleteButtonListener(ActionEvent event) {
-        //TODO delete customer button.
+    /**
+     * Deletes selected customer and associated appointments from database. Also makes confirmation messages before and after deletion.
+     * Added Lambda expression to make alert option complete the deletion.
+     * @param event delete button press.
+     * @throws SQLException accesses database.
+     */
+    @FXML void deleteButtonListener(ActionEvent event) throws SQLException {
+        if (customerTable.getSelectionModel().isEmpty()) {
+            errorLabel.setText("Error: Please select a customer to delete.");
+            errorLabel.setVisible(true);
+        } else if (JDBC.getConnection().isValid(JDBC.getTimeout())) {
+            Customer customer = customerTable.getSelectionModel().getSelectedItem();
+            CustomerDao customerDao = new CustomerImpl();
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setContentText("Are you sure you want to delete: \n"+customer.getCustomerName());
+            confirm.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    Scheduler.getAllCustomers().remove(customer);
+                    Scheduler.getAllAppointments().removeAll(customer.getAppointments());
+                    //TODO delete all customer appointments when deleting.
+                    CustomersController.deleted = customerDao.deleteCustomer(customer);
+                }
+            });
+            if (deleted) {
+                Alert info = new Alert(Alert.AlertType.INFORMATION, customer.getCustomerName()+" was deleted.",ButtonType.OK);
+                info.show();
+            }
+            initialize();
+        }
     }
 
     /**
@@ -69,12 +103,17 @@ public class CustomersController {
      * @throws IOException loads CustomerForm.fxml and new Stage.
      */
     @FXML void updateButtonListener(ActionEvent event) throws IOException {
-        //TODO add error if customer is not selected
-        //TODO add UpdateController get item method.
-        UpdateCustomerFormController controller = new UpdateCustomerFormController();
-        Stage stage = stageFactory(controller);
-        stage.setTitle("Update Customer");
-        stage.show();
+        if (!customerTable.getSelectionModel().isEmpty()) {
+            UpdateCustomerFormController controller = new UpdateCustomerFormController();
+            Stage stage = stageFactory(controller);
+            controller.getSelectedCustomer(customerTable.getSelectionModel().getSelectedItem());
+            stage.setTitle("Update Customer");
+            stage.showAndWait();
+            initialize();
+        } else {
+            errorLabel.setText("Error: Please select a customer to update.");
+            errorLabel.setVisible(true);
+        }
     }
 
     /**

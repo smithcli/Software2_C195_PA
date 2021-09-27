@@ -29,8 +29,8 @@ public class AddCustomerFormController extends CustomerFormController{
      */
     @Override
     void saveListener(ActionEvent event) throws SQLException {
-        validateForm();
-        if (JDBC.getConnection().isValid(10) && validateForm()) {
+        super.validateForm();
+        if (JDBC.getConnection().isValid(JDBC.getTimeout()) && super.validateForm()) {
             CustomerDao dao = new CustomerImpl();
             //Build new customer from Form fields.
             Customer customer = super.customerBuilder();
@@ -38,7 +38,9 @@ public class AddCustomerFormController extends CustomerFormController{
             dao.createCustomer(customer);
             //Add customer to local machine.
             Scheduler.getAllCustomers().add(dao.getCustomer(customer.getCustomerName(),customer.getPhoneNum()));
+            //Link references to the new customer.
             Scheduler.setupFirstLevelDivs();
+            //New customer will not have any appointments to setup yet.
             //Close window
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
