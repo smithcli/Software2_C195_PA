@@ -1,5 +1,6 @@
 package GCScheduler.dao.JDBC;
 
+import GCScheduler.dao.AppointmentDao;
 import GCScheduler.dao.CustomerDao;
 import GCScheduler.model.Customer;
 import GCScheduler.utilities.DateTimeConv;
@@ -121,9 +122,10 @@ public class CustomerImpl implements CustomerDao {
         int customerId = customer.getCustomerId();
         String query = "DELETE FROM customers WHERE Customer_ID = "+customerId+";";
         try {
+            AppointmentDao appointmentDao = new AppointmentImpl();
+            appointmentDao.deleteAllAppts(customer.getAppointments());
             JDBC.getConnection().createStatement().execute(query);
             return true;
-            //TODO delete all appointments with customer.
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -154,9 +156,9 @@ public class CustomerImpl implements CustomerDao {
 
     /**
      * Method helps return a PreparedStatement for a Customer object.
-     * Indices used are 1-9: 1-Name, 2-Address, 3-PostalCode, 4-Phone, 5-divId, 6-createDate, 7-createBy, 8-lastUpdate, 9-lastUpdatedBy.
+     * Indices used are 1-9: 1-Name, 2-Address, 3-PostalCode, 4-Phone, 5-divId, 6-createDate, 7-createBy, 8-lastUpdate, 9-lastUpdatedBy, if 10 is needed Customer ID.
      * @param customer Customer Object.
-     * @param pstmt PreparedStatment to help.
+     * @param pstmt PreparedStatement to help.
      * @return PreparedStatement with Customer Fields.
      * @throws SQLException Uses PreparedStatement.
      */

@@ -1,5 +1,6 @@
 package GCScheduler.controller.customers;
 
+import GCScheduler.controller.MenuBarController;
 import GCScheduler.dao.CustomerDao;
 import GCScheduler.dao.JDBC.CustomerImpl;
 import GCScheduler.dao.JDBC.JDBC;
@@ -83,9 +84,7 @@ public class CustomersController {
             confirm.setContentText("Are you sure you want to delete: \n"+customer.getCustomerName());
             confirm.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    Scheduler.getAllCustomers().remove(customer);
-                    Scheduler.getAllAppointments().removeAll(customer.getAppointments());
-                    //TODO delete all customer appointments when deleting.
+                    //TODO determine if local update can be done easily.
                     CustomersController.deleted = customerDao.deleteCustomer(customer);
                 }
             });
@@ -93,6 +92,10 @@ public class CustomersController {
                 Alert info = new Alert(Alert.AlertType.INFORMATION, customer.getCustomerName()+" was deleted.",ButtonType.OK);
                 info.show();
             }
+            //Easier to refresh data than to locally make all link changes.
+            //If performance becomes an issue may need to change.
+            //TODO remove refresh if local update can be done.
+            MenuBarController.refreshData();
             initialize();
         }
     }
