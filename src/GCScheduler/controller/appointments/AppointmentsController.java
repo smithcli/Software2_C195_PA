@@ -105,7 +105,6 @@ public class AppointmentsController {
      * @param event appointment selected and delete button press.
      */
     @FXML void deleteButtonListener(ActionEvent event) throws SQLException {
-        // TODO delete selected item
         if (apptTable.getSelectionModel().isEmpty()) {
             errorLabel.setText("Error: Please select an appointment to delete.");
             errorLabel.setVisible(true);
@@ -113,7 +112,8 @@ public class AppointmentsController {
             Appointment appt = apptTable.getSelectionModel().getSelectedItem();
             AppointmentDao dao = new AppointmentImpl();
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-            confirm.setContentText("Are you sure you want to delete: \n"+appt.getApptTitle());
+            String apptName = "Appt ID: "+appt.getApptId()+" of Type: "+appt.getApptType();
+            confirm.setContentText("Are you sure you want to delete:\n"+apptName);
             confirm.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     appt.getCustomer().getAppointments().remove(appt);
@@ -122,7 +122,7 @@ public class AppointmentsController {
                 }
             });
             if (deleted) {
-                Alert info = new Alert(Alert.AlertType.INFORMATION, appt.getApptTitle()+" was deleted.",ButtonType.OK);
+                Alert info = new Alert(Alert.AlertType.INFORMATION, apptName+" was deleted.",ButtonType.OK);
                 info.show();
             }
             initialize();

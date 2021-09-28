@@ -130,7 +130,7 @@ public abstract class AppointmentFormController {
         boolean validDate = (dateField.getValue() != null);
         errors += (validDate) ? "":"\nError: Please select a date.";
         if (validDate) {
-            boolean validDate2 = (dateField.getValue().isAfter(LocalDate.now()));
+            boolean validDate2 = (dateField.getValue().isAfter(LocalDate.now().minusDays(1)));
             errors += (validDate2) ? "":"\nError: Please select a future date.";
             if (validDate2) {
                 return true;

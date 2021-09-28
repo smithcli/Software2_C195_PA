@@ -15,8 +15,7 @@ public class GCScheduler extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         GCScheduler.primaryStage = primaryStage;
-        //TODO set root back to login.
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/Schedule.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/Login.fxml")));
         GCScheduler.primaryStage.setTitle("GC Scheduler");
         GCScheduler.primaryStage.setScene(new Scene(root));
         GCScheduler.primaryStage.show();
