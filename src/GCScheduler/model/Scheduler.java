@@ -10,6 +10,7 @@ public class Scheduler {
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
     private static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    private static User activeUser;
 
     public static ObservableList<Country> getAllCountries() {
         return allCountries;
@@ -104,5 +105,13 @@ public class Scheduler {
                 }
             }
         }
+    }
+
+    public static User getActiveUser() {
+        return activeUser;
+    }
+
+    public static void setActiveUser(User activeUser) {
+        Scheduler.activeUser = activeUser;
     }
 }

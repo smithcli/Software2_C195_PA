@@ -1,5 +1,8 @@
 package GCScheduler.controller.appointments;
 
+import GCScheduler.dao.AppointmentDao;
+import GCScheduler.dao.JDBC.AppointmentImpl;
+import GCScheduler.dao.JDBC.JDBC;
 import GCScheduler.model.Appointment;
 import GCScheduler.model.Scheduler;
 import GCScheduler.utilities.DateTimeConv;
@@ -8,9 +11,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.ZonedDateTime;
 
@@ -42,6 +50,7 @@ public class AppointmentsController {
     @FXML private Button addButton;
     @FXML private Button updateButton;
     @FXML private Button deleteButton;
+    private boolean deleted;
 
     /**
      * Method to enable or disable next and prev buttons for Month and Week selections.
@@ -73,8 +82,12 @@ public class AppointmentsController {
      * Opens the Add appointment form.
      * @param event add button press.
      */
-    @FXML void addButtonListener(ActionEvent event) {
-        // TODO open add appointment form.
+    @FXML void addButtonListener(ActionEvent event) throws IOException {
+        AddAppointmentFormController addController = new AddAppointmentFormController();
+        Stage stage = stageFactory(addController);
+        stage.setTitle("Add Appointment");
+        stage.showAndWait();
+        initialize();
     }
 
     /**
@@ -91,8 +104,29 @@ public class AppointmentsController {
      * Deletes selected appointment and shows confirmation message.
      * @param event appointment selected and delete button press.
      */
-    @FXML void deleteButtonListener(ActionEvent event) {
+    @FXML void deleteButtonListener(ActionEvent event) throws SQLException {
         // TODO delete selected item
+        if (apptTable.getSelectionModel().isEmpty()) {
+            errorLabel.setText("Error: Please select an appointment to delete.");
+            errorLabel.setVisible(true);
+        } else if (JDBC.getConnection().isValid(JDBC.getTimeout())) {
+            Appointment appt = apptTable.getSelectionModel().getSelectedItem();
+            AppointmentDao dao = new AppointmentImpl();
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setContentText("Are you sure you want to delete: \n"+appt.getApptTitle());
+            confirm.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    appt.getCustomer().getAppointments().remove(appt);
+                    Scheduler.getAllAppointments().remove(appt);
+                    this.deleted = dao.deleteAppt(appt);
+                }
+            });
+            if (deleted) {
+                Alert info = new Alert(Alert.AlertType.INFORMATION, appt.getApptTitle()+" was deleted.",ButtonType.OK);
+                info.show();
+            }
+            initialize();
+        }
     }
 
     /**
@@ -139,8 +173,18 @@ public class AppointmentsController {
      * Opens the Update Appointment form.
      * @param event on update button press.
      */
-    @FXML void updateButtonListener(ActionEvent event) {
-        // TODO opens the update appt form
+    @FXML void updateButtonListener(ActionEvent event) throws IOException {
+        if (!apptTable.getSelectionModel().isEmpty()) {
+            UpdateAppointmentFormController updateController = new UpdateAppointmentFormController();
+            Stage stage = stageFactory(updateController);
+            updateController.getSelectedAppt(apptTable.getSelectionModel().getSelectedItem());
+            stage.setTitle("Update Appointment");
+            stage.showAndWait();
+            initialize();
+        } else {
+            errorLabel.setText("Error: Please select an appointment to update.");
+            errorLabel.setVisible(true);
+        }
     }
 
     /**
@@ -190,5 +234,19 @@ public class AppointmentsController {
         // Set Table which displays time in system time.
         apptTable.setItems(weekFilter);
         monthWeekLabel.setText("Week " + DateTimeConv.getWeekOfYear(monday));
+    }
+
+    /**
+     * Helper method to create windows for new Add or Update Forms using AppointmentForm.fxml
+     * @param controller Controller for the Form.
+     * @return Stage with new Scene and controller linked.
+     * @throws IOException loads AppointmentForm.fxml
+     */
+    protected Stage stageFactory(AppointmentFormController controller) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GCScheduler/view/appointments/AppointmentForm.fxml"));
+        loader.setController(controller);
+        stage.setScene(new Scene(loader.load()));
+        return stage;
     }
 }

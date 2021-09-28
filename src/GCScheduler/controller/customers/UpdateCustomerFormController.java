@@ -34,8 +34,9 @@ public class UpdateCustomerFormController extends CustomerFormController{
             dao.updateCustomer(customer);
             //Update customer in local machine.
             Scheduler.getAllCustomers().remove(oldCustomer);
+            oldCustomer.getDiv().getCustomerList().remove(oldCustomer);
             Scheduler.getAllCustomers().add(dao.getCustomer(customer.getCustomerId()));
-            //Relink references to the new customer.
+            //Relink references to the updated customer.
             Scheduler.setupFirstLevelDivs();
             Scheduler.setupAppointments();
             //Close window

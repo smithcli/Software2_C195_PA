@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -29,10 +29,10 @@
                <children>
                   <GridPane hgap="10.0" prefHeight="500.0" prefWidth="400.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="50.0" />
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="10.0" />
                       <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="-Infinity" minWidth="10.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="10.0" />
-                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="10.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -55,23 +55,25 @@
                         <Label text="Location" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Type" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Date" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label text="Format hh:mm" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <Label alignment="CENTER" prefWidth="200.0" text="Format hh:mm (00-23hr)" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                         <Label text="Start Time" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label text="End Time" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label text="Customer" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Label text="Contact" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <Label text="User" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <TextField fx:id="apptIdField" disable="true" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" />
-                        <TextField fx:id="titleField" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                        <TextField fx:id="descField" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                        <TextField fx:id="locationField" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                        <TextField fx:id="typeField" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                        <DatePicker fx:id="dateField" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
-                        <TextField fx:id="startTimeField" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
-                        <TextField fx:id="endTimeField" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" />
-                        <ComboBox fx:id="customerCombo" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" />
-                        <ComboBox fx:id="contactCombo" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="10" />
-                        <ComboBox fx:id="userCombo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                        <TextField fx:id="apptIdField" disable="true" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" />
+                        <TextField fx:id="titleField" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                        <TextField fx:id="descField" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                        <TextField fx:id="locationField" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                        <TextField fx:id="typeField" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+                        <DatePicker fx:id="dateField" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+                        <TextField fx:id="startTimeField" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
+                        <TextField fx:id="endTimeField" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="customerCombo" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" />
+                        <ComboBox fx:id="contactCombo" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="10" />
+                        <ComboBox fx:id="userCombo" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                        <Label fx:id="startESTLabel" text="Start EST" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                        <Label fx:id="endESTLabel" text="End EST" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="8" />
                      </children>
                   </GridPane>
                   <GridPane alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

@@ -1,6 +1,5 @@
 package GCScheduler.controller.customers;
 
-import GCScheduler.controller.MenuBarController;
 import GCScheduler.dao.CustomerDao;
 import GCScheduler.dao.JDBC.CustomerImpl;
 import GCScheduler.dao.JDBC.JDBC;
@@ -34,7 +33,7 @@ public class CustomersController {
     @FXML private Button updateButton;
     @FXML private Button addButton;
     @FXML private Label errorLabel;
-    private static boolean deleted;
+    private boolean deleted;
 
     /**
      * Method called when loaded, populates tableView from Scheduler class model.
@@ -84,18 +83,16 @@ public class CustomersController {
             confirm.setContentText("Are you sure you want to delete: \n"+customer.getCustomerName());
             confirm.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    //TODO determine if local update can be done easily.
-                    CustomersController.deleted = customerDao.deleteCustomer(customer);
+                    customer.getDiv().getCustomerList().remove(customer);
+                    Scheduler.getAllCustomers().remove(customer);
+                    Scheduler.getAllAppointments().removeAll(customer.getAppointments());
+                    this.deleted = customerDao.deleteCustomer(customer);
                 }
             });
             if (deleted) {
                 Alert info = new Alert(Alert.AlertType.INFORMATION, customer.getCustomerName()+" was deleted.",ButtonType.OK);
                 info.show();
             }
-            //Easier to refresh data than to locally make all link changes.
-            //If performance becomes an issue may need to change.
-            //TODO remove refresh if local update can be done.
-            MenuBarController.refreshData();
             initialize();
         }
     }
@@ -125,7 +122,7 @@ public class CustomersController {
      * @return Stage with CustomerForm
      * @throws IOException loads CustomerForm.fxml with new Stage.
      */
-    private Stage stageFactory(CustomerFormController controller) throws IOException {
+    protected Stage stageFactory(CustomerFormController controller) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GCScheduler/view/customers/CustomerForm.fxml"));
         loader.setController(controller);

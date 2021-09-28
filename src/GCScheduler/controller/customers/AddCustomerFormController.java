@@ -16,10 +16,11 @@ import java.sql.SQLException;
 public class AddCustomerFormController extends CustomerFormController{
 
     /**
-     * Method calls super setupCombos to prepare the form.
+     * Method calls super setupCombos and prepares the form.
      */
     public void initialize(){
         super.setupCombos();
+        customerIdField.setText("Auto-Generated");
     }
 
     /**
@@ -29,7 +30,6 @@ public class AddCustomerFormController extends CustomerFormController{
      */
     @Override
     void saveListener(ActionEvent event) throws SQLException {
-        super.validateForm();
         if (JDBC.getConnection().isValid(JDBC.getTimeout()) && super.validateForm()) {
             CustomerDao dao = new CustomerImpl();
             //Build new customer from Form fields.

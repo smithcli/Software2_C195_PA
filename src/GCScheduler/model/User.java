@@ -10,6 +10,7 @@ public class User {
     private String createdBy;
     private ZonedDateTime lastUpdate;
     private String lastUpdatedBy;
+    private boolean active;
 
     public User(int userId, String userName, String password, ZonedDateTime createDate, String createdBy, ZonedDateTime lastUpdate, String lastUpdatedBy) {
         this.userId = userId;
@@ -19,6 +20,7 @@ public class User {
         this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
         this.lastUpdatedBy = lastUpdatedBy;
+        this.active = false;
     }
 
     public int getUserId() {
@@ -75,6 +77,14 @@ public class User {
 
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

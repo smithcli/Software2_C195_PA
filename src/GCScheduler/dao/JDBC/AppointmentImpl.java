@@ -63,7 +63,7 @@ public class AppointmentImpl implements AppointmentDao {
      */
     @Override
     public Appointment getAppt(String title, String start, int customerId) {
-        String query = "SELECT * FROM appointments WHERE title = "+title+" AND start = "+start+" AND Customer_ID = "+customerId+";";
+        String query = "SELECT * FROM appointments WHERE title = '"+title+"' AND start = '"+start+"' AND Customer_ID = "+customerId+";";
         try {
             ResultSet rset = JDBC.getConnection().createStatement().executeQuery(query);
             rset.next();

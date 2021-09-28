@@ -114,6 +114,8 @@ public class LoginController {
                 collator.setStrength(Collator.IDENTICAL);
                 if (collator.equals(password,user.getPassword())) {
                     //Username and Password correct.
+                    user.setActive(true);
+                    Scheduler.setActiveUser(user);
                     return 1;
                 }
                 //Only Username correct.

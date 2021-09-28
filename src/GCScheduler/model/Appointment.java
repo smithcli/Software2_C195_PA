@@ -21,6 +21,10 @@ public class Appointment {
     private int contactId;
     private Contact contact;
 
+    public Appointment(String apptTitle) {
+        this.apptTitle = apptTitle;
+    }
+
     public Appointment(int apptId, String apptTitle, String description, String location, String apptType, ZonedDateTime start, ZonedDateTime end, ZonedDateTime createDate, String createBy, ZonedDateTime lastUpdate, String lastUpdateBy, int customerId, int userId, int contactId) {
         this.apptId = apptId;
         this.apptTitle = apptTitle;

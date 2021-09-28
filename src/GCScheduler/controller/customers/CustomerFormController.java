@@ -69,7 +69,7 @@ public abstract class CustomerFormController {
     }
 
     /**
-     * Method to create a new Customer for Add and Update Forms to work with JDBC CustomerDao.
+     * Method to create a new Customer for Add and Update Forms using the input from the form fields.
      * Builds with Name,Address,Postal,Phone, and Div ID from Form Fields.
      */
     public Customer customerBuilder() {
@@ -90,7 +90,7 @@ public abstract class CustomerFormController {
         errorLabel.setText(errors);
         //Check Name field.
         boolean validName = (!nameField.getText().isBlank());
-        errors += (validName) ? "":"Error: Name Cannot be blank.";
+        errors += (validName) ? "":"Error: Name cannot be blank.";
         //Check Country
         boolean validCountry = (!countryCombo.getSelectionModel().isEmpty());
         errors += (validCountry) ? "":"\nError: Please select a Country.";
