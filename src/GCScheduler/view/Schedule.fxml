@@ -21,7 +21,7 @@
           </Tab>
             <Tab fx:id="reportsTab" text="Reports">
                <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                   <fx:include source="Reports.fxml"/>
                </content>
             </Tab>
         </tabs>

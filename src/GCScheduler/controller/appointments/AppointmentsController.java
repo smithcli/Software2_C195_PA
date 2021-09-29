@@ -1,5 +1,6 @@
 package GCScheduler.controller.appointments;
 
+import GCScheduler.controller.ReportsController;
 import GCScheduler.dao.AppointmentDao;
 import GCScheduler.dao.JDBC.AppointmentImpl;
 import GCScheduler.dao.JDBC.JDBC;
@@ -73,6 +74,7 @@ public class AppointmentsController {
         apptTable.getSortOrder().add(startCol);
         errorLabel.setVisible(false);
         contactFilter.addAll(Scheduler.getAllAppointments()); //still used in month and week filter.
+        ReportsController.setupLocationPieChart();
         setupContactCombo();
     }
 
@@ -96,6 +98,7 @@ public class AppointmentsController {
         contactCombo.getItems().add(clear);
         //All contacts.
         contactCombo.getItems().addAll(Scheduler.getAllContacts());
+        contactCombo.setPromptText("By Contact");
     }
 
     /**
