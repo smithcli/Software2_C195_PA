@@ -76,6 +76,8 @@ public class AppointmentsController {
         cxIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         usrIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
         contactCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getContact().getContactName()));
+        apptTable.getSortOrder().add(startCol);
+        errorLabel.setVisible(false);
     }
 
     /**

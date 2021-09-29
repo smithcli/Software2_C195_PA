@@ -86,7 +86,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="errorLabel" alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="300.0" text="Error" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+                        <Label fx:id="errorLabel" alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="450.0" text="Error" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
                      </children>
                   </GridPane>
                </children>

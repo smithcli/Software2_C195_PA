@@ -28,7 +28,7 @@ public class UpdateAppointmentFormController extends AppointmentFormController{
             AppointmentDao dao = new AppointmentImpl();
             //Build new Appointment from Form fields and necessary appointment data.
             Appointment appt = super.apptBuilder();
-            appt.setCustomerId(oldAppointment.getCustomerId());
+            appt.setApptId(oldAppointment.getApptId());
             appt.setCreateDate(oldAppointment.getCreateDate());
             appt.setCreateBy(oldAppointment.getCreateBy());
             //Update Appointment in DB.

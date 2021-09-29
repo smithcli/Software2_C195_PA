@@ -8,15 +8,24 @@ import javafx.scene.control.*;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Controller class for the Schedule.fxml that holds the tab pane for the other views and the MenuBar.
+ */
 public class ScheduleController {
     @FXML private Tab apptTab;
     @FXML private Tab customerTab;
-    @FXML private Tab scheduleTab;
+    @FXML private Tab reportsTab;
 
+    /**
+     * Initialized only after login, making best to hold the appointmentAlert method.
+     */
     public void initialize() {
         appointmentAlert();
     }
 
+    /**
+     * Creates an Alert message to notify user of any upcoming appointments within 15 minutes.
+     */
     protected void appointmentAlert() {
         //Convert local time now and 15min to UTC for comparison.
         ZonedDateTime alertTime = DateTimeConv.localToUTC(ZonedDateTime.now());
