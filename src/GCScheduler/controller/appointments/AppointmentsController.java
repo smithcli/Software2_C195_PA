@@ -4,6 +4,7 @@ import GCScheduler.dao.AppointmentDao;
 import GCScheduler.dao.JDBC.AppointmentImpl;
 import GCScheduler.dao.JDBC.JDBC;
 import GCScheduler.model.Appointment;
+import GCScheduler.model.Contact;
 import GCScheduler.model.Scheduler;
 import GCScheduler.utilities.DateTimeConv;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,6 +31,7 @@ public class AppointmentsController {
     @FXML private Button prevButton;
     @FXML private Label monthWeekLabel;
     @FXML private Button nextButton;
+    @FXML private ComboBox<Contact> contactCombo;
     @FXML private RadioButton allRadio;
     @FXML private ToggleGroup apptViewGroup;
     @FXML private RadioButton monthRadio;
@@ -51,15 +53,7 @@ public class AppointmentsController {
     @FXML private Button updateButton;
     @FXML private Button deleteButton;
     private boolean deleted;
-
-    /**
-     * Method to enable or disable next and prev buttons for Month and Week selections.
-     * @param b true disables the buttons.
-     */
-    private void disableMWButtons(boolean b){
-        prevButton.setDisable(b);
-        nextButton.setDisable(b);
-    }
+    private ObservableList<Appointment> contactFilter = FXCollections.observableArrayList();
 
     /**
      * Called when Scheduler.fxml is loaded. Initializes the Tableview to all appointments.
@@ -78,6 +72,30 @@ public class AppointmentsController {
         contactCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getContact().getContactName()));
         apptTable.getSortOrder().add(startCol);
         errorLabel.setVisible(false);
+        contactFilter.addAll(Scheduler.getAllAppointments()); //still used in month and week filter.
+        setupContactCombo();
+    }
+
+    /**
+     * Method to enable or disable next and prev buttons for Month and Week selections.
+     * @param b true disables the buttons.
+     */
+    private void disableMWButtons(boolean b){
+        prevButton.setDisable(b);
+        nextButton.setDisable(b);
+    }
+
+    /**
+     * Sets up the Contact ComboBox with a Clear object and all contacts.
+     */
+    private void setupContactCombo() {
+        //Added clear as it doubled everytime intitialize was called.
+        contactCombo.getItems().clear();
+        //Created clear to have a selection to clear the combo.
+        Contact clear = new Contact(0,"Clear","clear@selection");
+        contactCombo.getItems().add(clear);
+        //All contacts.
+        contactCombo.getItems().addAll(Scheduler.getAllContacts());
     }
 
     /**
@@ -93,13 +111,34 @@ public class AppointmentsController {
     }
 
     /**
-     * Sets the TableView to all appointments, the default view.
-     * @param event all radio selected.
+     * Sets the TableView to all appointments when the all radio is selected, the default view.
      */
-    @FXML void allRadioListener(ActionEvent event) {
+    @FXML void allRadioListener() {
         disableMWButtons(true);
         monthWeekLabel.setText("All");
-        apptTable.setItems(Scheduler.getAllAppointments());
+        apptTable.setItems(contactFilter);
+        allRadio.setSelected(true);
+    }
+
+    /**
+     * Filters the view based on Contact choice from contact combo box. Clear re-initializes to default.
+     * Changing the combo fires the All radio button since the filtered list changes by contact.
+     */
+    @FXML void contactComboListener() {
+        int contactId = contactCombo.getSelectionModel().getSelectedItem().getContactId();
+        contactFilter.clear();
+        allRadioListener();
+        if (contactId != 0) {
+            for (Appointment appt : Scheduler.getAllAppointments()) {
+                if (appt.getContactId() == contactId) {
+                    this.contactFilter.add(appt);
+                }
+            }
+            apptTable.setItems(contactFilter);
+        } else {
+            apptTable.setItems(Scheduler.getAllAppointments());
+            contactFilter.addAll(Scheduler.getAllAppointments());
+        }
     }
 
     /**
@@ -139,6 +178,7 @@ public class AppointmentsController {
         disableMWButtons(false);
         this.date = ZonedDateTime.now();
         monthApptFilter();
+        monthRadio.setSelected(true);
     }
 
     /**
@@ -198,6 +238,7 @@ public class AppointmentsController {
         this.date = ZonedDateTime.now();
         weekApptFilter();
         monthWeekLabel.setText("Current Week " + DateTimeConv.getWeekOfYear(this.date));
+        weekRadio.setSelected(true);
     }
 
     /**
@@ -205,7 +246,7 @@ public class AppointmentsController {
      */
     protected void monthApptFilter() {
         ObservableList<Appointment> monthFilter = FXCollections.observableArrayList();
-        for (Appointment appt : Scheduler.getAllAppointments()) {
+        for (Appointment appt : contactFilter) {
             if (DateTimeConv.localToUTC(this.date).getMonth().equals(appt.getStart().getMonth())) {
                 monthFilter.add(appt);
             }
@@ -227,7 +268,7 @@ public class AppointmentsController {
         ZonedDateTime monday =  date.minusDays(daysFromMonday).minusHours(date.getHour()).minusMinutes(date.getMinute());
         // System.out.println("Monday of selected Week is " + monday);
         // Find appointments that are from this week's Monday to Sunday.
-        for (Appointment appt : Scheduler.getAllAppointments()) {
+        for (Appointment appt : contactFilter) {
             ZonedDateTime apptDate = DateTimeConv.utcToLocal(appt.getStart());
             if (apptDate.isAfter(monday) && apptDate.isBefore(monday.plusDays(7))){
                 weekFilter.add(appt);
