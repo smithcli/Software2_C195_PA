@@ -1,0 +1,8 @@
+GCScheduler
+GCScheduler.controller
+GCScheduler.controller.appointments
+GCScheduler.controller.customers
+GCScheduler.dao
+GCScheduler.dao.JDBC
+GCScheduler.model
+GCScheduler.utilities

@@ -105,7 +105,7 @@ public class LoginController {
      * Method searches for User and Password matching the fields and returns an integer for the login method to determine outcome.
      * @param userName String from Username field.
      * @param password String from Password field.
-     * @return 1&equals;Correct, 2&equals;Username Correct, 3&equals;Username not found.
+     * @return 1=Correct, 2=Username Correct, 3=Username not found.
      */
     protected int userValidation(String userName, String password) {
         for (User user : Scheduler.getAllUsers()) {

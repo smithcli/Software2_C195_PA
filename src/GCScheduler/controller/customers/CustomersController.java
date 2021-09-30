@@ -38,7 +38,7 @@ public class CustomersController {
 
     /**
      * Method called when loaded, populates tableView from Scheduler class model.
-     * Includes lambda expressions to reduce amount of code. The &quot;new Callback&quot; way is extremely long.
+     * LAMBDA EXPRESSION was used to reduce amount of code. The &quot;new Callback&quot; way is extremely long.
      */
     public void initialize() {
         // Place customer list on TableView.
@@ -70,7 +70,7 @@ public class CustomersController {
 
     /**
      * Deletes selected customer and associated appointments from database. Also makes confirmation messages before and after deletion.
-     * Added Lambda expression to make alert option complete the deletion.
+     * LAMBDA EXPRESSION used for Alert showAndWait response as it is one of the simpler options to use to get the response type.
      * @param event delete button press.
      * @throws SQLException accesses database.
      */

@@ -9,9 +9,17 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * Main class of the application.
+ */
 public class GCScheduler extends Application {
     private static Stage primaryStage;
 
+    /**
+     * Launches the application GUI.
+     * @param primaryStage Application window
+     * @throws Exception primary stage did not load.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         GCScheduler.primaryStage = primaryStage;
@@ -21,10 +29,18 @@ public class GCScheduler extends Application {
         GCScheduler.primaryStage.show();
     }
 
+    /**
+     * Gets the Primary Stage
+     * @return Primary Stage.
+     */
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
+    /**
+     * Main method to start application.
+     * @param args array of arguments for the application.
+     */
     public static void main(String[] args) {
 //        Locale.setDefault(new Locale("fr"));
         JDBC.startConnection();

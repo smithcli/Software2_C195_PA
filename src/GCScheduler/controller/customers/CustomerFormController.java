@@ -71,6 +71,7 @@ public abstract class CustomerFormController {
     /**
      * Method to create a new Customer for Add and Update Forms using the input from the form fields.
      * Builds with Name,Address,Postal,Phone, and Div ID from Form Fields.
+     * @return Customer with attributes from Form fields.
      */
     public Customer customerBuilder() {
         Customer customer = new Customer(nameField.getText());

@@ -63,10 +63,18 @@ public abstract class JDBC {
         return userName;
     }
 
+    /**
+     * getter for the timeout variable
+     * @return timeout int.
+     */
     public static int getTimeout() {
         return timeout;
     }
 
+    /**
+     * Setter for the timeout variable.
+     * @param timeout int
+     */
     public static void setTimeout(int timeout) {
         JDBC.timeout = timeout;
     }

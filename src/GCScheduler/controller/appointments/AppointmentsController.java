@@ -58,6 +58,7 @@ public class AppointmentsController {
 
     /**
      * Called when Scheduler.fxml is loaded. Initializes the Tableview to all appointments.
+     * LAMBDA EXPRESSION used to set the start and end column cells vs using the Callback method.
      */
     public void initialize() {
         apptTable.setItems(Scheduler.getAllAppointments());
@@ -146,6 +147,7 @@ public class AppointmentsController {
 
     /**
      * Deletes selected appointment and shows confirmation message.
+     * LAMBDA EXPRESSION used for Alert showAndWait response as it is one of the simpler options to use to get the response type.
      * @param event appointment selected and delete button press.
      */
     @FXML void deleteButtonListener(ActionEvent event) throws SQLException {

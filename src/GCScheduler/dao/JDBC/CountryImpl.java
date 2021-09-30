@@ -10,12 +10,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 
+/**
+ * Queries the mySql database with CRUD operations for the Country model object.
+ */
 public class CountryImpl implements CountryDao {
+
+    /**
+     * Not used.
+     * Creates a new Country record using the Country object attributes.
+     * @param country Country to add.
+     */
     @Override
     public void createCountry(Country country) {
 
     }
 
+    /**
+     * Returns a Country object by using the Country id, the primary key in the table.
+     * @param countryId Country ID to locate the record.
+     * @return Country object.
+     */
     @Override
     public Country getCountry(int countryId) {
         String query = "SELECT * FROM countries WHERE Country_ID = " + countryId + ";";
@@ -29,6 +43,10 @@ public class CountryImpl implements CountryDao {
         return null;
     }
 
+    /**
+     * Returns all Country records using an ObservableList of Country type.
+     * @return ObservableList of Countries.
+     */
     @Override
     public ObservableList<Country> getAllCountries() {
         String query = "SELECT * FROM countries;";
@@ -45,16 +63,33 @@ public class CountryImpl implements CountryDao {
         return null;
     }
 
+    /**
+     * Not used.
+     * Updates the Country record using the passed Country object's attributes.
+     * @param country Country to update.
+     */
     @Override
     public void updateCountry(Country country) {
 
     }
 
+    /**
+     * Not used.
+     * Deletes a Country record using the Country object's id.
+     * @param country Country to delete.
+     * @return true if deleted.
+     */
     @Override
     public boolean deleteCountry(Country country) {
         return false;
     }
 
+    /**
+     * Helper method to return a ResultSet for a Country record.
+     * @param rset the ResultSet to help.
+     * @return new Country with attributes from the record.
+     * @throws SQLException uses ResultSet.
+     */
     private Country makeCountry(ResultSet rset) throws SQLException {
         int id = rset.getInt("Country_ID");
         String name = rset.getString("Country");

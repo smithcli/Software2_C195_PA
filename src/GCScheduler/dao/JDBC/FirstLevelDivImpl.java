@@ -10,12 +10,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 
+/**
+ * Queries the mySql database with CRUD operations for the FirstLevelDiv model Object.
+ */
 public class FirstLevelDivImpl implements FirstLevelDivDao {
+
+    /**
+     * Not used.
+     * Creates a new firstLevelDiv record using the object attributes.
+     * @param firstLevelDiv firstLevelDiv to add.
+     */
     @Override
     public void createFirstLevelDiv(FirstLevelDiv firstLevelDiv) {
 
     }
 
+    /**
+     * Returns a firstLevelDiv object by using the ID, the primary key in the table.
+     * @param divId ID to locate the firstLevelDiv.
+     * @return firstLevelDiv object.
+     */
     @Override
     public FirstLevelDiv getFirstLevelDiv(int divId) {
         String query = "SELECT * FROM first_level_divisions WHERE Division_ID = " + divId + ";";
@@ -29,6 +43,10 @@ public class FirstLevelDivImpl implements FirstLevelDivDao {
         return null;
     }
 
+    /**
+     * Returns all firstLevelDiv records using an ObservableList.
+     * @return ObservableList of firstLevelDivs.
+     */
     @Override
     public ObservableList<FirstLevelDiv> getAllFirstLevelDivs() {
         String query = "SELECT * FROM first_level_divisions;";
@@ -45,16 +63,33 @@ public class FirstLevelDivImpl implements FirstLevelDivDao {
         return null;
     }
 
+    /**
+     * Not used.
+     * Updates the record using the passed object.
+     * @param firstLevelDiv firstLevelDiv to update.
+     */
     @Override
     public void update(FirstLevelDiv firstLevelDiv) {
 
     }
 
+    /**
+     * Not used.
+     * Deletes a firstLevelDiv record using the ID.
+     * @param firstLevelDiv firstLevelDiv to delete.
+     * @return true if deleted.
+     */
     @Override
     public boolean deleteFirstLevelDiv(FirstLevelDiv firstLevelDiv) {
         return false;
     }
 
+    /**
+     * Helper Method to return a ResultSet for a firstLevelDiv record.
+     * @param rset The ResultSet to help.
+     * @return new Div with attributes from the record.
+     * @throws SQLException uses ResultSet.
+     */
     private FirstLevelDiv makeDiv(ResultSet rset) throws SQLException {
         int id = rset.getInt("Division_ID");
         String div = rset.getString("Division");

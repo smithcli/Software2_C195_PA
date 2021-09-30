@@ -47,7 +47,7 @@ public class UpdateCustomerFormController extends CustomerFormController{
 
     /**
      * Method is used in the CustomerController class to pass the selected Customer and set the fields on the form with customer data.
-     * @param customer
+     * @param customer Customer to pass to controller.
      */
     public void getSelectedCustomer(Customer customer) {
         oldCustomer = customer;

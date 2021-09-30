@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.time.ZonedDateTime;
 
 /**
- * Class is the Appointment interface for the mySql database. Uses sql queries to perform database functions on the appointments table.
+ * Queries the mySql database with CRUD operations for the Appointment model Class.
  */
 public class AppointmentImpl implements AppointmentDao {
 
