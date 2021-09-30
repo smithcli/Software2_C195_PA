@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -33,7 +29,7 @@
          <center>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="665.0" prefWidth="454.0">
+                <AnchorPane fx:id="leftAnchorPane" minWidth="0.0" prefHeight="665.0" prefWidth="454.0">
                      <children>
                         <GridPane maxHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="508.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
@@ -45,14 +41,6 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                         </GridPane>
-                        <BarChart fx:id="apptBarChart" layoutX="4.0" layoutY="133.0" title="Customer Appointments By Month" AnchorPane.bottomAnchor="132.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="133.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </BarChart>
                      </children>
                   </AnchorPane>
                 <AnchorPane fx:id="rightAnchorPane" minWidth="0.0" prefHeight="665.0" prefWidth="546.0">

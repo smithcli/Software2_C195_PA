@@ -74,8 +74,8 @@ public class AppointmentsController {
         apptTable.getSortOrder().add(startCol);
         errorLabel.setVisible(false);
         contactFilter.addAll(Scheduler.getAllAppointments()); //still used in month and week filter.
-        ReportsController.setupLocationPieChart();
         setupContactCombo();
+        ReportsController.setupApptBarChart();
     }
 
     /**

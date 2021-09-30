@@ -1,5 +1,6 @@
 package GCScheduler.controller.customers;
 
+import GCScheduler.controller.ReportsController;
 import GCScheduler.dao.CustomerDao;
 import GCScheduler.dao.JDBC.CustomerImpl;
 import GCScheduler.dao.JDBC.JDBC;
@@ -51,6 +52,7 @@ public class CustomersController {
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phoneNum"));
         customerTable.getSortOrder().add(cxIdCol);
         errorLabel.setVisible(false);
+        ReportsController.setupLocationPieChart();
     }
 
     /**
