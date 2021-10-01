@@ -149,7 +149,6 @@ public abstract class AppointmentFormController {
     /**
      * Helper method to validate the Start time field.
      * Checks Start Time for Blank, valid format, future time, and within EST business hours.
-     *
      * @return true if valid.
      */
     private boolean validateStart() {
