@@ -61,7 +61,9 @@ public class AppointmentsController {
      * LAMBDA EXPRESSION used to set the start and end column cells vs using the Callback method.
      */
     public void initialize() {
-        apptTable.setItems(Scheduler.getAllAppointments());
+        //Table always uses the Contact Filter for the Table to allow it to constantly change with the different selections.
+        setupContactFilter(); //Sets Combos and refreshes contact filter == all appointments.
+        allRadioListener(); //Default set in FXML, Sets the table with Contact Filter
         apptIdCol.setCellValueFactory(new PropertyValueFactory<>("apptId"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("apptType"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("apptTitle"));
@@ -74,8 +76,6 @@ public class AppointmentsController {
         contactCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getContact().getContactName()));
         apptTable.getSortOrder().add(startCol);
         errorLabel.setVisible(false);
-        contactFilter.addAll(Scheduler.getAllAppointments()); //still used in month and week filter.
-        setupContactCombo();
         ReportsController.setupApptBarChart();
     }
 
@@ -89,12 +89,16 @@ public class AppointmentsController {
     }
 
     /**
-     * Sets up the Contact ComboBox with a Clear object and all contacts.
+     * Sets up the Contact Filter and the ComboBox with a Clear object and all contacts.
      */
-    private void setupContactCombo() {
-        //Added clear as it doubled everytime intitialize was called.
+    private void setupContactFilter() {
+        //Cleared the lists as it doubled everytime initialize was called.
         contactCombo.getItems().clear();
-        //Created clear to have a selection to clear the combo.
+        contactFilter.clear();
+        //Setup the Filter.
+        contactFilter.addAll(Scheduler.getAllAppointments());
+        //Setup the Combo Box
+        //Created a new Contact to have a selection to clear the combo. DataBase starts a 1.
         Contact clear = new Contact(0,"Clear","clear@selection");
         contactCombo.getItems().add(clear);
         //All contacts.
@@ -129,19 +133,22 @@ public class AppointmentsController {
      * Changing the combo fires the All radio button since the filtered list changes by contact.
      */
     @FXML void contactComboListener() {
-        int contactId = contactCombo.getSelectionModel().getSelectedItem().getContactId();
-        contactFilter.clear();
-        allRadioListener();
-        if (contactId != 0) {
-            for (Appointment appt : Scheduler.getAllAppointments()) {
-                if (appt.getContactId() == contactId) {
-                    this.contactFilter.add(appt);
+        //Prevent NullPointerException when initialize is called.
+        if (!contactCombo.getItems().isEmpty()) {
+            //All Radio sets the table with Contact Filter.
+            allRadioListener();
+            contactFilter.clear();
+            int contactId = contactCombo.getSelectionModel().getSelectedItem().getContactId();
+            //Clear Contact == 0
+            if (contactId != 0) {
+                for (Appointment appt : Scheduler.getAllAppointments()) {
+                    if (appt.getContactId() == contactId) {
+                        this.contactFilter.add(appt);
+                    }
                 }
+            } else {
+                contactFilter.addAll(Scheduler.getAllAppointments());
             }
-            apptTable.setItems(contactFilter);
-        } else {
-            apptTable.setItems(Scheduler.getAllAppointments());
-            contactFilter.addAll(Scheduler.getAllAppointments());
         }
     }
 
