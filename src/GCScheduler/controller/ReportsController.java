@@ -23,26 +23,28 @@ public class ReportsController {
     @FXML private Label errorLabel;
     @FXML private AnchorPane leftAnchorPane;
     @FXML private AnchorPane rightAnchorPane;
-    private static PieChart locationPieChart;
-    private static BarChart<Number,String> apptByMonthBC;
+    private PieChart locationPieChart;
+    private BarChart<Number,String> apptByMonthBC;
 
     /**
      * Called when class is loaded. Calls methods placeLeftChart and placeRightChart.
      */
     public void initialize() {
-        placeLeftChart(apptByMonthBC);
-        placeRightChart(locationPieChart);
+        setupApptBarChart();
+        setupLocationPieChart();
+        placeChart(leftAnchorPane,apptByMonthBC);
+        placeChart(rightAnchorPane,locationPieChart);
     }
 
     /**
      * Creates Horizontal Bar Chart that displays number of Appointments by Type and Month.
      * Needed Help on this class to change the xAxis numbers to display only integers not doubles.
      */
-    public static void setupApptBarChart() {
+    public void setupApptBarChart() {
         NumberAxis xAxis = new NumberAxis();
         CategoryAxis yAxis = new CategoryAxis();
-        apptByMonthBC = new BarChart<>(xAxis, yAxis);
-        apptByMonthBC.setTitle("Customer Appointments by Month");
+        this.apptByMonthBC = new BarChart<>(xAxis, yAxis);
+        this.apptByMonthBC.setTitle("Customer Appointments by Month");
         xAxis.setLabel("# of Appointments");
         StringConverter<Number> converter = new StringConverter<Number>() {
             //Needed help with the override link: https://stackoverflow.com/questions/23841268/how-to-make-javafx-chart-numberaxis-only-show-integer-value-not-double
@@ -92,7 +94,7 @@ public class ReportsController {
     /**
      * Custom report that displays in a PieChart customers by Country.
      */
-    public static void setupLocationPieChart() {
+    public void setupLocationPieChart() {
         ObservableList<PieChart.Data> locations = FXCollections.observableArrayList();
         for (Country country : Scheduler.getAllCountries()) {
             double customerCount = 0;
@@ -102,29 +104,18 @@ public class ReportsController {
             String countryName = country.getCountryName()+" - "+ (int)customerCount;
             locations.add(new PieChart.Data(countryName,customerCount));
         }
-        locationPieChart = new PieChart(locations);
-        locationPieChart.setTitle("Customers by Country");
+        this.locationPieChart = new PieChart(locations);
+        this.locationPieChart.setTitle("Customers by Country");
     }
 
     /**
-     * Places a chart in the center of the AnchorPane on the SplitPane's right side.
+     * Places a chart in the center of the AnchorPane on the chosen side of the SplitPane.
+     * @param side AnchorPane side to place chart.
      * @param chart chart to be placed.
      */
-    protected void placeRightChart(Chart chart) {
-        rightAnchorPane.getChildren().add(chart);
-        AnchorPane.setTopAnchor(chart,50.0);
-        AnchorPane.setBottomAnchor(chart,0.0);
-        AnchorPane.setLeftAnchor(chart,0.0);
-        AnchorPane.setRightAnchor(chart,0.0);
-    }
-
-    /**
-     * Places a chart in the center of the AnchorPane on the SplitPane's left side.
-     * @param chart chart to be placed.
-     */
-    protected void placeLeftChart(Chart chart) {
-        leftAnchorPane.getChildren().add(chart);
-        AnchorPane.setTopAnchor(chart,50.0);
+    public void placeChart(AnchorPane side, Chart chart) {
+        side.getChildren().add(chart);
+        AnchorPane.setTopAnchor(chart,0.0);
         AnchorPane.setBottomAnchor(chart,0.0);
         AnchorPane.setLeftAnchor(chart,0.0);
         AnchorPane.setRightAnchor(chart,0.0);

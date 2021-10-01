@@ -7,21 +7,21 @@
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GCScheduler.controller.ScheduleController">
    <children>
        <fx:include source="MenuBar.fxml" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <TabPane prefHeight="741.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="200.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+      <TabPane fx:id="schedulerTabPane" prefHeight="741.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="200.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
         <tabs>
           <Tab fx:id="apptTab" text="Appointments">
             <content>
-                <fx:include source="appointments/Appointments.fxml" />
+                <fx:include fx:id="apptsTab" source="appointments/Appointments.fxml" />
             </content>
           </Tab>
           <Tab fx:id="customerTab" text="Customers">
             <content>
-                <fx:include source="customers/Customers.fxml" />
+                <fx:include fx:id="customersTab" source="customers/Customers.fxml" />
             </content>
           </Tab>
-            <Tab fx:id="reportsTab" text="Reports">
+            <Tab fx:id="reportTab" text="Reports">
                <content>
-                   <fx:include source="Reports.fxml"/>
+                   <fx:include fx:id="reportsTab" source="Reports.fxml"/>
                </content>
             </Tab>
         </tabs>

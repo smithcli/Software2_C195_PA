@@ -1,6 +1,5 @@
 package GCScheduler.controller.appointments;
 
-import GCScheduler.controller.ReportsController;
 import GCScheduler.dao.AppointmentDao;
 import GCScheduler.dao.JDBC.AppointmentImpl;
 import GCScheduler.dao.JDBC.JDBC;
@@ -76,7 +75,6 @@ public class AppointmentsController {
         contactCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getContact().getContactName()));
         apptTable.getSortOrder().add(startCol);
         errorLabel.setVisible(false);
-        ReportsController.setupApptBarChart();
     }
 
     /**
@@ -259,12 +257,15 @@ public class AppointmentsController {
     protected void monthApptFilter() {
         ObservableList<Appointment> monthFilter = FXCollections.observableArrayList();
         for (Appointment appt : contactFilter) {
-            if (DateTimeConv.localToUTC(this.date).getMonth().equals(appt.getStart().getMonth())) {
+            ZonedDateTime apptDate = DateTimeConv.utcToLocal(appt.getStart());
+            if (this.date.getMonth().equals(apptDate.getMonth())
+            && this.date.minusMonths(1).isBefore(apptDate)
+            && this.date.plusMonths(1).isAfter(apptDate)) {
                 monthFilter.add(appt);
             }
         }
         apptTable.setItems(monthFilter);
-        monthWeekLabel.setText(String.valueOf(this.date.getMonth()));
+        monthWeekLabel.setText(String.valueOf(this.date.getMonth() +" "+ this.date.getYear()));
         // System.out.println("Month selected is " + this.date.getMonth());
     }
 
@@ -288,7 +289,7 @@ public class AppointmentsController {
         }
         // Set Table which displays time in system time.
         apptTable.setItems(weekFilter);
-        monthWeekLabel.setText("Week " + DateTimeConv.getWeekOfYear(monday));
+        monthWeekLabel.setText("Week " + DateTimeConv.getWeekOfYear(monday) +" "+ monday.getYear());
     }
 
     /**
