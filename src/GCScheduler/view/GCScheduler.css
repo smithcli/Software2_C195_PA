@@ -1,0 +1,10 @@
+/* Main GCScheduler CSS */
+
+.errorMessages {
+   font-weight: bold;
+   font-size: 13px;
+   color: AF0606;
+   -fx-font-size: 13px;
+   -fx-font-weight: bold;
+   -fx-text-fill: #AF0606;
+}

@@ -16,14 +16,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <bottom>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <buttons>
-                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveListener" text="Save" />
-                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelListener" text="Cancel" />
-              </buttons>
-            </ButtonBar>
-         </bottom>
+         <top>
+             <Pane prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </top>
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
@@ -86,15 +81,20 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="errorLabel" alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="450.0" text="Error" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+                        <Label fx:id="errorLabel" alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="450.0" styleClass="errorMessages" stylesheets="@../GCScheduler.css" text="Error" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
                      </children>
                   </GridPane>
                </children>
             </AnchorPane>
          </center>
-         <top>
-            <Pane prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </top>
+         <bottom>
+             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                 <buttons>
+                     <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveListener" text="Save" />
+                     <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelListener" text="Cancel" />
+                 </buttons>
+             </ButtonBar>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

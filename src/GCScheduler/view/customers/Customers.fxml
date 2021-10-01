@@ -39,7 +39,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="errorLabel" alignment="CENTER" prefWidth="300.0" text="Error" visible="false" GridPane.columnIndex="1" />
+                  <Label fx:id="errorLabel" alignment="CENTER" styleClass="errorMessages" stylesheets="@../GCScheduler.css" text="Error" visible="false" GridPane.columnIndex="1" />
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <buttons>
                         <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonListener" prefWidth="70.0" text="Add" />

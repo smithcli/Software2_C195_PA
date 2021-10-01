@@ -46,7 +46,7 @@
                         <TextField fx:id="userNameField" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#usernameListener" prefWidth="180.0" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <PasswordField fx:id="passwordField" maxWidth="-Infinity" minWidth="-Infinity" onKeyReleased="#passwordListener" prefWidth="180.0" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonListener" text="Login" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                        <Label fx:id="loginErrorLabel" alignment="CENTER" focusTraversable="false" text="Incorrect Username or Password" textAlignment="CENTER" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <Label fx:id="loginErrorLabel" alignment="CENTER" focusTraversable="false" styleClass="errorMessages" stylesheets="@GCScheduler.css" text="Incorrect Username or Password" textAlignment="CENTER" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />

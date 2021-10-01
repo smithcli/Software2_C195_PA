@@ -25,7 +25,8 @@ While in Month and Week view you can change Month and Week
 with < and > Buttons on the Upper left hand side.
 A.2 Obtain a Contact Schedule by selecting a Contact in the
 Combo on the upper right. You can further filter with
-Month and Week as stated in A.1. To clear the contact filter,
+Month and Week as stated in A.1. When selecting a contact it
+will default to the All filter. To clear the contact filter,
 select the contact combo box as before and press clear.
 A.3 To add an appointment press the add button and complete the form.
 A.4 To update an appointment select the row/record you wish to update
@@ -52,4 +53,4 @@ C.2. The right pie chart shows number of customers by country.
 ---Additional Notes---
 
 -Javadocs are located under the doc directory
--LAMBDA expressions are used in AppointmentsController initialize and deleteButtonListener methods.
+-2 LAMBDA expressions are used in AppointmentsController initialize and deleteButtonListener methods.

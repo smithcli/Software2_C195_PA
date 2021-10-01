@@ -39,7 +39,8 @@ public class Scheduler {
                 allCountries) {
             for (FirstLevelDiv div :
                     allFirstLevelDivs) {
-                if (div.getCountryId() == country.getCountryId()) {
+                // If ID's match and Country hasn't already added the div to the list.
+                if (div.getCountryId() == country.getCountryId() && !country.getFirstLevelDivs().contains(div)) {
                     country.getFirstLevelDivs().add(div);
                     div.setCountry(country);
                 }
@@ -71,7 +72,8 @@ public class Scheduler {
                 allFirstLevelDivs) {
             for (Customer customer :
                     allCustomers) {
-                if (customer.getDivId() == div.getDivId()) {
+                //If ID's match and Div doesn't already have the customer in the list (removes duplicates).
+                if (customer.getDivId() == div.getDivId() && !div.getCustomerList().contains(customer)) {
                     div.getCustomerList().add(customer);
                     customer.setDiv(div);
                 }
@@ -159,7 +161,8 @@ public class Scheduler {
                 }
             }
             for (Customer customer : allCustomers) {
-                if (customer.getCustomerId() == appt.getCustomerId()) {
+                //If ID's Match and Customer doesn't already have the appointment on their list.
+                if (customer.getCustomerId() == appt.getCustomerId() && !customer.getAppointments().contains(appt)) {
                     appt.setCustomer(customer);
                     customer.getAppointments().add(appt);
                 }

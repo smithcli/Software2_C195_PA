@@ -44,16 +44,16 @@ public class ReportsController {
         NumberAxis xAxis = new NumberAxis();
         CategoryAxis yAxis = new CategoryAxis();
         this.apptByMonthBC = new BarChart<>(xAxis, yAxis);
-        this.apptByMonthBC.setTitle("Customer Appointments by Month");
+        this.apptByMonthBC.setTitle("Customer Appointments by Month and Type");
         xAxis.setLabel("# of Appointments");
-        StringConverter<Number> converter = new StringConverter<Number>() {
-            //Needed help with the override link: https://stackoverflow.com/questions/23841268/how-to-make-javafx-chart-numberaxis-only-show-integer-value-not-double
+        StringConverter<Number> converter = new StringConverter<>() {
+            //Needed help with the override, link: https://stackoverflow.com/questions/23841268/how-to-make-javafx-chart-numberaxis-only-show-integer-value-not-double
             @Override
             public String toString(Number number) {
-                if (number.intValue()!=number.doubleValue()) {
+                if (number.intValue() != number.doubleValue()) {
                     return "";
                 }
-                return ""+(number.intValue());
+                return "" + (number.intValue());
             }
 
             @Override
@@ -87,7 +87,7 @@ public class ReportsController {
                     series.getData().add(new XYChart.Data<>(count,String.valueOf(month)));
                 }
             }
-            apptByMonthBC.getData().add(series);
+            this.apptByMonthBC.getData().add(series);
         }
     }
 
@@ -114,6 +114,7 @@ public class ReportsController {
      * @param chart chart to be placed.
      */
     public void placeChart(AnchorPane side, Chart chart) {
+        side.getChildren().clear();
         side.getChildren().add(chart);
         AnchorPane.setTopAnchor(chart,0.0);
         AnchorPane.setBottomAnchor(chart,0.0);

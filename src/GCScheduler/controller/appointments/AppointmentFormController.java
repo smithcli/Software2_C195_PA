@@ -34,7 +34,6 @@ public abstract class AppointmentFormController {
     private ZonedDateTime apptStart;
     private ZonedDateTime apptEnd;
 
-
     /**
      * Method closes the window.
      *
@@ -157,7 +156,7 @@ public abstract class AppointmentFormController {
         errors += (validStart) ? "" : "\nError: Start cannot be blank.";
         if (validStart) {
             boolean validStart2 = (DateTimeConv.matchesTimePattern(startTimeField.getText()));
-            errors += (validStart2) ? "" : "\nError: Start Time not valid.";
+            errors += (validStart2) ? "" : "\nError: Start Time not in valid format.";
             if (validStart2) {
                 this.apptStart = DateTimeConv.strToDateLocal(dateField.getValue() + " " + startTimeField.getText() + ":00");
                 boolean validStart3 = (this.apptStart.isAfter(ZonedDateTime.now()));
@@ -188,16 +187,16 @@ public abstract class AppointmentFormController {
         errors += (validEnd) ? "":"\nError: End cannot be blank.";
         if (validEnd) {
             boolean validEnd2 = (DateTimeConv.matchesTimePattern(endTimeField.getText()));
-            errors += (validEnd2) ? "" : "\nError: End Time not valid.";
+            errors += (validEnd2) ? "" : "\nError: End Time not in valid format.";
             if (validEnd2) {
                 this.apptEnd = DateTimeConv.strToDateLocal(dateField.getValue() + " " + endTimeField.getText() + ":00");
-                boolean validEnd3 = (this.apptEnd.isAfter(this.apptStart));
-                errors += (validEnd3) ? "" : "\nError: End is not after Start.";
+                boolean validEnd3 = (DateTimeConv.inBusinessHrs(this.apptEnd));
+                errors += (validEnd3) ? "" : "\nError: End is not within business hours (08-22 EST).";
                 endESTLabel.setText("= ("+DateTimeConv.timeToStrEST(this.apptEnd)+" EST)");
                 endESTLabel.setVisible(true);
-                if (validEnd3) {
-                    boolean validEnd4 = (DateTimeConv.inBusinessHrs(this.apptEnd));
-                    errors += (validEnd4) ? "" : "\nError: End is not within business hours (08-22 EST).";
+                if (validEnd3 && this.apptStart != null) {
+                    boolean validEnd4 = (this.apptEnd.isAfter(this.apptStart));
+                    errors += (validEnd4) ? "" : "\nError: End is not after Start.";
                     if (validEnd4) {
                         return true;
                     }
