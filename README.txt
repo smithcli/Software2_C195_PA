@@ -9,8 +9,8 @@ Email: csm2180@wgu.edu or smithc238@gmail.com
 Version: 1.0.0
 AS OF 2021-10-01
 
-Intellij Community 2021.1.3
-Oracle Java SE 11.0.12
+Intellij Community 2021.1.1
+Oracle Java SE 11.0.11
 OpenJFX-SDK-11.0.2
 mySQL-connector-java 8.0.25
 

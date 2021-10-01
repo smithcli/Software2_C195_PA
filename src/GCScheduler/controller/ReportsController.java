@@ -38,7 +38,6 @@ public class ReportsController {
 
     /**
      * Creates Horizontal Bar Chart that displays number of Appointments by Type and Month.
-     * Needed Help on this class to change the xAxis numbers to display only integers not doubles.
      */
     public void setupApptBarChart() {
         NumberAxis xAxis = new NumberAxis();
@@ -46,23 +45,6 @@ public class ReportsController {
         this.apptByMonthBC = new BarChart<>(xAxis, yAxis);
         this.apptByMonthBC.setTitle("Customer Appointments by Month and Type");
         xAxis.setLabel("# of Appointments");
-        StringConverter<Number> converter = new StringConverter<>() {
-            //Needed help with the override, link: https://stackoverflow.com/questions/23841268/how-to-make-javafx-chart-numberaxis-only-show-integer-value-not-double
-            @Override
-            public String toString(Number number) {
-                if (number.intValue() != number.doubleValue()) {
-                    return "";
-                }
-                return "" + (number.intValue());
-            }
-
-            @Override
-            public Number fromString(String s) {
-                Number number = Double.parseDouble(s);
-                return number.intValue();
-            }
-        };
-        xAxis.setTickLabelFormatter(converter);
         xAxis.setMinorTickVisible(false);
         yAxis.setLabel("Month");
         List<String> types = new ArrayList<>();
@@ -84,7 +66,8 @@ public class ReportsController {
                 }
                 if (count > 0) {
                     //System.out.println(type + " " + count + " " + month);
-                    series.getData().add(new XYChart.Data<>(count,String.valueOf(month)));
+                    XYChart.Data data = new XYChart.Data(count,String.valueOf(month));
+                    series.getData().add(data);
                 }
             }
             this.apptByMonthBC.getData().add(series);
