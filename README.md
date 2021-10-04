@@ -6,7 +6,7 @@ In this course I developed a Java application to meet the specifications
 required in the performance assessment. All course resources are located 
 in the [doc/Course_Resources](doc/Course_Resources) directory.
 
-[WGU Performance Assessment](doc/Course_Resources/WGU Performance Assessment.pdf) - 
+[WGU Performance Assessment](doc/Course_Resources/WGU_Performance_Assessment.pdf) - 
 Provides the scenario and requirements for this assessment.
 
 For this assessment it's required that your application is able to run in their virtual machine.
